@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public class Main {
 
-    final static String repATrier = "EML_a_trier/";
+    final static String repATrier = "EML_a_trier/";//"test/";
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -16,49 +16,67 @@ public class Main {
         List<String> mailOk = new ArrayList<>();
         List<String> mailKo = new ArrayList<>();
 
-
+        Vector v0 = new Vector<>();
         //Vocabulary definition
         List<String> vocabulaire = new ArrayList<>();
         vocabulaire.add("entreprise");
-        vocabulaire.add("developpeur");
-        vocabulaire.add("logiciel");
-        vocabulaire.add("service");
-        vocabulaire.add("back-end");
-        vocabulaire.add("front end");
-        vocabulaire.add("back end");
-        vocabulaire.add("client");
+        v0.add(1);
+        //vocabulaire.add("developpeur");
+        //vocabulaire.add("back-end");
+        //vocabulaire.add("front end");
+        //vocabulaire.add("client");
         vocabulaire.add("expertise");
+        v0.add(1);
         vocabulaire.add("poste");
+        v0.add(1);
+        vocabulaire.add("profil");
+        v0.add(1);
         vocabulaire.add("offre");
-        vocabulaire.add("collaborateur");
-        vocabulaire.add("metier");
+        v0.add(1);
+//        vocabulaire.add("collaborateur");
         vocabulaire.add("emploi");
+        v0.add(1);
         vocabulaire.add("stage");
-        vocabulaire.add("recrute");
-        vocabulaire.add("java");
+        v0.add(1);
+      //  vocabulaire.add("recrute");
+        //v0.add(1);
+/*        vocabulaire.add("java");
         vocabulaire.add("python");
         vocabulaire.add("php");
         vocabulaire.add("cobol");
         vocabulaire.add("ruby");
         vocabulaire.add("sql");
-        vocabulaire.add("offre");
-        vocabulaire.add("emploi");
+        vocabulaire.add("offre");*/
         vocabulaire.add("stage");
+        v0.add(1);
+        vocabulaire.add("professionnel");
+        v0.add(1);
+        vocabulaire.add("leader");
+        v0.add(1);
+        //vocabulaire.add("ingenieur");
+//        vocabulaire.add("mission");
+//        vocabulaire.add("projet");
 
         //Vector initialization
-        Vector v0 = new Vector<>();
-        for (int i=0;i<vocabulaire.size();i++){
-            v0.add(1);
-        }
+        /*Vector v0 = new Vector<>();
+         (String voc : vocabulaire){
+            if (voc=="poste"){
+                v0.add(3);
+            }else{
+                v0.add(1);
+            }
+        }*/
 
         //Gets all eml files in an array
         File folder = new File(repATrier);
         File[] emlFiles = folder.listFiles();
 
+        //System.out.println("emlFiles size : " + emlFiles.length);
+
         //Loop on eml files
         for (File emlFile : emlFiles) {
         //Gets the file content
-            String content = new Scanner(emlFiles[0]).useDelimiter("\\Z").next();
+            String content = new Scanner(emlFile).useDelimiter("\\Z").next();
             //content is set to lowercase
             content = content.toLowerCase();
             //removes spcial char
@@ -80,19 +98,29 @@ public class Main {
             }else{
                 mailKo.add(emlFile.getName());
             }
-//            System.out.println(emlFile.getName());
-            System.out.println(v1);
+            //System.out.println(v1);
+
         }
 
-        System.out.println(mailOk);
-        for (String mail : mailOk){
-            System.out.println(mail);
-        }
-        System.out.println(mailKo);
-        for (String mail : mailKo){
-            System.out.println(mail);
+        System.out.println("MailOK size : " + mailOk.size());
+        for (String mail1 : mailOk){
+            System.out.println(mail1);
         }
 
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("MailKO size : " + mailKo.size());
+        for (String mail2 : mailKo){
+            System.out.println(mail2);
+        }
     }
 
     public static String replaceSpecialChar(String str){
@@ -148,8 +176,6 @@ public class Main {
         String[] words = str.split(" ");
 
         for (String w:words){
-//            System.out.println(w);
-
             if (w.equals(findStr)){
                 count++;
             }
@@ -170,8 +196,12 @@ public class Main {
         }
         v0Norm = Math.sqrt(v0Norm);
         v1Norm = Math.sqrt(v1Norm);
+        double cos =0.0;
+        if (v1Norm != 0){
+            cos = scalarDot/(v0Norm*v1Norm);
+        }
 
-        double cos = scalarDot/(v0Norm*v1Norm);
+        //System.out.println("cos" + cos);
         if (cos<=0.8){
             return "KO";
         }else{
